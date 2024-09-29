@@ -50,26 +50,77 @@ document.addEventListener('DOMContentLoaded', function() {
       countrySelect.appendChild(option);
   });
 
+  const container = document.createElement('div');
+  container.style.display = 'flex';
+  container.style.flexDirection = 'column';
+  container.style.justifyContent = 'center';
+  container.style.alignItems = 'center';
+  container.style.textAlign = 'center';
+  container.style.height = '50vh'; // Initial position
+  container.style.width = '100vw';
+  container.style.transition = 'height 0.5s ease'; // Smooth transition for height change
+  document.body.appendChild(container);
+
+  // Create the globe icon
   const globeIcon = document.createElement('div');
   globeIcon.innerHTML = '🌍';
   globeIcon.style.fontSize = '50px';
-  globeIcon.style.display = 'flex';
-  globeIcon.style.justifyContent = 'center';
-  globeIcon.style.alignItems = 'center';
-  globeIcon.style.height = '100vh'; // Adjust as needed
-  globeIcon.style.width = '100vw';  // Adjust as needed
+  container.appendChild(globeIcon);
 
+  // Create the language label (initially hidden)
   const languageLabel = document.createElement('label');
   languageLabel.textContent = 'Select your language: ';
+  languageLabel.style.fontSize = '15px';
+  languageLabel.style.display = 'none'; // Hide initially
+  languageLabel.style.transition = 'height 0.5s ease, opacity 0.5s ease';
   languageLabel.appendChild(languageSelect);
+  container.appendChild(languageLabel);
 
+  // create visa question (initially hidden)
   const visaLabel = document.createElement('label');
-  visaLabel.textContent = "What's your visa status? ";
+  visaLabel.textContent = "What's your visa status?";
+  visaLabel.style.fontSize = '15px';
+  visaLabel.style.display = 'none'; // Hide initially
+  visaLabel.style.transition = 'height 0.5s ease, opacity 0.5s ease';
   visaLabel.appendChild(visaSelect);
+  container.appendChild(visaLabel);
+
+  // Function to show the language label and move the container
+  function showLanguageLabel() {
+    container.style.height = '40vh'; // Move container up
+    languageLabel.style.display = 'block'; // Show the language label
+  }
+
+  // Function to show the visa question
+  function showVisaQuestion() {
+    container.style.height = '35vh';
+    visaLabel.style.display = 'block'; // Show the visa question
+
+  }
+
+  // Delay before showing the language label
+  setTimeout(showLanguageLabel, 2000); // Adjust the delay as needed (2000ms = 2 seconds)
+
+// Event listener for language selection
+  languageSelect.addEventListener('change', showVisaQuestion);
 
   const countryLabel = document.createElement('label');
   countryLabel.textContent = "What country are you from? ";
   countryLabel.appendChild(countrySelect);
+  countryLabel.style.fontSize = '15px';
+  countryLabel.style.display = 'none'; // Hide initially
+  countryLabel.style.transition = 'height 0.5s ease, opacity 0.5s ease';
+  countryLabel.appendChild(countrySelect);
+  container.appendChild(countryLabel);
+
+  // Function to show the visa question
+  function showCountryQuestion() {
+    container.style.height = '30vh';
+    countryLabel.style.display = 'block'; // Show the visa question
+  }
+
+// Event listener for language selection
+  visaSelect.addEventListener('change', showCountryQuestion);
 
   const uploadLabel = document.createElement('label');
   uploadLabel.textContent = 'Upload your documents: ';
