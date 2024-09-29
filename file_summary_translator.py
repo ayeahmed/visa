@@ -92,10 +92,6 @@ def process_with_chatgpt(content, keywords, question, is_image=False):
         raise
 
 
-def translate_text(text, target_language):
-    translator = Translator()
-    translation = translator.translate(text, dest=target_language)
-    return translation.text
 
 def process_file(file_path, keywords, question, target_language):
     _, file_extension = os.path.splitext(file_path)
