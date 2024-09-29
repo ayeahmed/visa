@@ -51,8 +51,13 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   const globeIcon = document.createElement('div');
-  globeIcon.innerHTML = '🌍❤️';
+  globeIcon.innerHTML = '🌍';
   globeIcon.style.fontSize = '50px';
+  globeIcon.style.display = 'flex';
+  globeIcon.style.justifyContent = 'center';
+  globeIcon.style.alignItems = 'center';
+  globeIcon.style.height = '100vh'; // Adjust as needed
+  globeIcon.style.width = '100vw';  // Adjust as needed
 
   const languageLabel = document.createElement('label');
   languageLabel.textContent = 'Select your language: ';
