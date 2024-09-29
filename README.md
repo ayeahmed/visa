@@ -1,8 +1,5 @@
-# EDIT ONLY IN VISA NOTTTT REACT VISA 
-## react is associated w react project and just for website hehehehe
-# visa
 # MHACKS 2024 Project
-## Ayesha Ahmed, Bridget Lin, Casseia Watson, and Somya Valecha
+## Ayesha Ahmed, Bridget Lin, and Casseia Watson
 # Problem Statement
 Legal documentation can often be difficult to comprehend for the average English speaker due to the dense nature of the material. For nonnative English speakers, this difficulty is magnified, and makes the legal process of applying for Visas and understanding one's situation even more challenging.
 # Project Objective
