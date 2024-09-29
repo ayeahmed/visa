@@ -31,7 +31,7 @@ def extract_text_from_pdf(pdf_path):
     return text
 
 def process_with_chatgpt(content, keywords, question, is_image=False):
-    api_key = "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"
+    api_key = "OUR API KEY"
     api_url = "https://api.openai.com/v1/chat/completions"
     
     headers = {
