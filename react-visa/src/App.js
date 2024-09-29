@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+document.body.style.background = '#ffdcec'
 
   const languages = [
     "Afrikaans (Afrikaans)", "Albanian (Shqip)", "Amharic (አማርኛ)", "Arabic (العربية)", "Armenian (Հայերեն)",
@@ -7,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     "Corsican (Corsu)", "Croatian (Hrvatski)", "Czech (Čeština)", "Danish (Dansk)", "Dutch (Nederlands)", "English (English)",
     "Esperanto (Esperanto)", "Estonian (Eesti)", "Finnish (Suomi)", "French (Français)", "Frisian (Frysk)", "Galician (Galego)",
     "Georgian (ქართული)", "German (Deutsch)", "Greek (Ελληνικά)", "Gujarati (ગુજરાતી)", "Haitian Creole (Kreyòl ayisyen)",
-    "Hausa (Hausa)", "Hawaiian (ʻŌlelo Hawaiʻi)", "Hebrew (עברית)", "Hindi (हिन्दी)", "Hmong (Hmoob)", "Hungarian (Magyar)",
+    "Hausa (Hausa)", "Hawaiian ('Ōlelo Hawai'i)", "Hebrew (עברית)", "Hindi (हिन्दी)", "Hmong (Hmoob)", "Hungarian (Magyar)",
     "Icelandic (Íslenska)", "Igbo (Asụsụ Igbo)", "Indonesian (Bahasa Indonesia)", "Irish (Gaeilge)", "Italian (Italiano)",
     "Japanese (日本語)", "Javanese (Basa Jawa)", "Kannada (ಕನ್ನಡ)", "Kazakh (Қазақ тілі)", "Khmer (ខ្មែរ)", "Kinyarwanda (Ikinyarwanda)",
     "Korean (한국어)", "Kurdish (Kurdî)", "Kyrgyz (Кыргызча)", "Lao (ລາວ)", "Latin (Latina)", "Latvian (Latviešu)", "Lithuanian (Lietuvių)",
@@ -30,7 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
   languages.forEach(language => {
       const option = document.createElement('option');
       option.value = language;
+      //option.style.scale = '1.5'
       option.textContent = language;
+      option.text.fontSize = '40px';
       languageSelect.appendChild(option);
   });
 
@@ -39,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const option = document.createElement('option');
       option.value = status;
       option.textContent = status;
+      option.text.fontSize = '40px';
       visaSelect.appendChild(option);
   });
 
@@ -47,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const option = document.createElement('option');
       option.value = country;
       option.textContent = country;
+      option.text.fontSize = '40px';
       countrySelect.appendChild(option);
   });
 
@@ -64,13 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // Create the globe icon
   const globeIcon = document.createElement('div');
   globeIcon.innerHTML = '🌍';
-  globeIcon.style.fontSize = '50px';
+  globeIcon.style.fontSize = '70px';
   container.appendChild(globeIcon);
 
   // Create the language label (initially hidden)
   const languageLabel = document.createElement('label');
   languageLabel.textContent = 'Select your language: ';
-  languageLabel.style.fontSize = '15px';
+  languageLabel.style.fontSize = '20px';
   languageLabel.style.display = 'none'; // Hide initially
   languageLabel.style.transition = 'height 0.5s ease, opacity 0.5s ease';
   languageLabel.appendChild(languageSelect);
@@ -79,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // create visa question (initially hidden)
   const visaLabel = document.createElement('label');
   visaLabel.textContent = "What's your visa status?";
-  visaLabel.style.fontSize = '15px';
+  visaLabel.style.fontSize = '20px';
   visaLabel.style.display = 'none'; // Hide initially
   visaLabel.style.transition = 'height 0.5s ease, opacity 0.5s ease';
   visaLabel.appendChild(visaSelect);
@@ -102,12 +107,15 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(showLanguageLabel, 2000); // Adjust the delay as needed (2000ms = 2 seconds)
 
 // Event listener for language selection
-  languageSelect.addEventListener('change', showVisaQuestion);
+  languageSelect.addEventListener('change', function() {
+    showVisaQuestion();
+    document.body.appendChild(visaLabel);
+  });
 
   const countryLabel = document.createElement('label');
   countryLabel.textContent = "What country are you from? ";
   countryLabel.appendChild(countrySelect);
-  countryLabel.style.fontSize = '15px';
+  countryLabel.style.fontSize = '20px';
   countryLabel.style.display = 'none'; // Hide initially
   countryLabel.style.transition = 'height 0.5s ease, opacity 0.5s ease';
   countryLabel.appendChild(countrySelect);
@@ -120,14 +128,42 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 // Event listener for language selection
-  visaSelect.addEventListener('change', showCountryQuestion);
+  visaSelect.addEventListener('change', function(){
+    showCountryQuestion();
+    document.body.appendChild(countryLabel);
+    setTimeout(showUploadPrompt, 2000);
+  });
 
   const uploadLabel = document.createElement('label');
   uploadLabel.textContent = 'Upload your documents: ';
+  uploadLabel.style.position = 'relative';
+  uploadLabel.style.display = 'none';
+  uploadLabel.style.fontSize = '20px';
+  uploadLabel.style.transition = 'height 0.5s ease, opacity 0.5s ease';
+  uploadLabel.style.alignItems = 'center';
   const uploadInput = document.createElement('input');
   uploadInput.type = 'file';
   uploadInput.accept = '.pdf, .jpeg, .png';
+  uploadInput.style.display = 'none';
+  uploadInput.style.transition = 'height 0.5s ease, opacity 0.5s ease';
   uploadLabel.appendChild(uploadInput);
+  container.appendChild(uploadLabel);
+
+    // Function to show the visa question
+    function showUploadPrompt() {
+      hidePreviousQuestions();
+      uploadInput.style.display = 'block';
+      uploadLabel.style.display = 'block';  
+    }
+  
+    function hidePreviousQuestions() {
+      languageLabel.style.display = 'none'; // Show the language label
+      countryLabel.style.display = 'none';
+      visaLabel.style.display = 'none';
+      container.remove(countryLabel);
+      container.remove(languageLabel);
+      container.remove(visaLabel);
+    }
 
   const questionLabel = document.createElement('label');
   questionLabel.textContent = 'What can we help you find? ';
@@ -138,19 +174,9 @@ document.addEventListener('DOMContentLoaded', function() {
   document.body.appendChild(globeIcon);
   document.body.appendChild(languageLabel);
 
-  languageSelect.addEventListener('change', function() {
-      globeIcon.style.position = 'absolute';
-      globeIcon.style.top = '10px';
-      globeIcon.style.left = '50%';
-      globeIcon.style.transform = 'translateX(-50%)';
-      globeIcon.style.fontSize = '100px';
-
-      document.body.appendChild(visaLabel);
-  });
-
-  visaSelect.addEventListener('change', function() {
-      document.body.appendChild(countryLabel);
-  });
+  // visaSelect.addEventListener('change', function() {
+  //     document.body.appendChild(countryLabel);
+  // });
 
   countrySelect.addEventListener('change', function() {
       document.body.innerHTML = '';
